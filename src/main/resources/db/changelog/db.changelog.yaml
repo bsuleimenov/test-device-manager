@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: create_main_table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: insert_device_data.sql
+      relativeToChangelogFile: true
+  - include:
+      file: create_waitlist_table.sql
+      relativeToChangelogFile: true
+  - include:
+      file: create_notification_table.sql
+      relativeToChangelogFile: true
