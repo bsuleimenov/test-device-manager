@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class NotificationSentHandler {
+class NotificationSentHandler {
 
     private final DeviceWaitlistUseCase deviceWaitlistUseCase;
 

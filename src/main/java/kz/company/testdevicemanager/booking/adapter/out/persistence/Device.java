@@ -1,4 +1,4 @@
-package kz.company.testdevicemanager.booking.adapter.out.persistence.tables;
+package kz.company.testdevicemanager.booking.adapter.out.persistence;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

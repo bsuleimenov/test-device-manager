@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class GetDeviceService implements GetDeviceUseCase {
+class GetDeviceService implements GetDeviceUseCase {
 
     private final LoadDevicePort loadDevicePort;
 

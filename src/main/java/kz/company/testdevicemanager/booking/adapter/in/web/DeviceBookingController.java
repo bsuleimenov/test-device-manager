@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/devices/{serialNumber}")
 @RequiredArgsConstructor
-public class DeviceBookingController {
+class DeviceBookingController {
 
     private final BookDeviceUseCase bookDeviceUseCase;
 

@@ -1,7 +1,5 @@
 package kz.company.testdevicemanager.booking.adapter.out.persistence;
 
-import kz.company.testdevicemanager.booking.adapter.out.persistence.tables.Booking;
-import kz.company.testdevicemanager.booking.adapter.out.persistence.tables.Device;
 import kz.company.testdevicemanager.booking.application.domain.model.api.BookingInfo;
 import kz.company.testdevicemanager.booking.application.domain.model.api.DeviceInfo;
 import kz.company.testdevicemanager.booking.application.domain.model.api.DeviceOverview;
@@ -18,7 +16,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class DevicePersistenceAdapter implements LoadDevicePort {
+class DevicePersistenceAdapter implements LoadDevicePort {
 
     private final DeviceRepository deviceRepository;
     private final BookingRepository bookingRepository;

@@ -1,7 +1,5 @@
 package kz.company.testdevicemanager.booking.adapter.out.persistence;
 
-import kz.company.testdevicemanager.booking.adapter.out.persistence.tables.Booking;
-import kz.company.testdevicemanager.booking.adapter.out.persistence.tables.Device;
 import kz.company.testdevicemanager.booking.application.domain.model.DeviceBooking;
 import kz.company.testdevicemanager.booking.application.port.out.DeviceBookingPersistencePort;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class DeviceBookingPersistenceAdapter implements DeviceBookingPersistencePort {
+class DeviceBookingPersistenceAdapter implements DeviceBookingPersistencePort {
 
     private final DeviceRepository deviceRepository;
     private final BookingRepository bookingRepository;

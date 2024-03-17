@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/devices/{serialNumber}/waitlist")
 @RequiredArgsConstructor
-public class DeviceWaitlistController {
+class DeviceWaitlistController {
 
     private final DeviceWaitlistUseCase deviceWaitlistUseCase;
 
