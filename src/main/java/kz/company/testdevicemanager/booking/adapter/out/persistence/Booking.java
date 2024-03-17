@@ -1,4 +1,4 @@
-package kz.company.testdevicemanager.booking.adapter.out.persistence.tables;
+package kz.company.testdevicemanager.booking.adapter.out.persistence;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Data
 @Table("BOOKINGS")
-public class Booking {
+class Booking {
     @Id
     private Long id;
     private String serialNumber;

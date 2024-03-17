@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/devices")
 @RequiredArgsConstructor
-public class DeviceQueryController {
+class DeviceQueryController {
 
     private final GetDeviceUseCase getDeviceUseCase;
 

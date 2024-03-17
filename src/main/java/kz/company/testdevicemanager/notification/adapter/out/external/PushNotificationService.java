@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PushNotificationService implements NotificationService {
+class PushNotificationService implements NotificationService {
 
     private final NotificationRepository notificationRepository;
 

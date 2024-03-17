@@ -14,7 +14,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class DeviceReturnedHandler {
+class DeviceReturnedHandler {
 
     private final NotifyWaitlistUsersUseCase notifyWaitlistUsersUseCase;
 

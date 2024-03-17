@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class NotificationInfoProvider implements LoadNotificationInfoPort {
+class NotificationInfoProvider implements LoadNotificationInfoPort {
 
     private final DeviceWaitlistRepository deviceWaitlistRepository;
 

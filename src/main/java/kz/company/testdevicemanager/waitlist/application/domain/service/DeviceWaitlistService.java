@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @RequiredArgsConstructor
-public class DeviceWaitlistService implements DeviceWaitlistUseCase {
+class DeviceWaitlistService implements DeviceWaitlistUseCase {
 
     private final DeviceWaitlistPersistencePort persistencePort;
 

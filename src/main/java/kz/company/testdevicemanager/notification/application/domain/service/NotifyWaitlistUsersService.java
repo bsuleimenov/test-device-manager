@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NotifyWaitlistUsersService implements NotifyWaitlistUsersUseCase {
+class NotifyWaitlistUsersService implements NotifyWaitlistUsersUseCase {
 
     private final LoadNotificationInfoPort loadNotificationInfoPort;
     private final NotificationFactory notificationFactory;

@@ -1,7 +1,7 @@
 package kz.company.testdevicemanager.waitlist.adapter.out;
 
+import kz.company.testdevicemanager.booking.adapter.out.persistence.Device;
 import kz.company.testdevicemanager.booking.adapter.out.persistence.DeviceRepository;
-import kz.company.testdevicemanager.booking.adapter.out.persistence.tables.Device;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.common.valueobject.User;
 import kz.company.testdevicemanager.waitlist.application.domain.model.DeviceWaitlist;
@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -21,7 +20,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class DeviceWaitlistPersistenceAdapter implements DeviceWaitlistPersistencePort {
+class DeviceWaitlistPersistenceAdapter implements DeviceWaitlistPersistencePort {
 
     private final DeviceWaitlistRepository deviceWaitlistRepository;
     private final DeviceRepository deviceRepository;

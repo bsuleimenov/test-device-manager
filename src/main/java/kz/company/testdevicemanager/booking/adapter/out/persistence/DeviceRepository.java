@@ -1,6 +1,5 @@
 package kz.company.testdevicemanager.booking.adapter.out.persistence;
 
-import kz.company.testdevicemanager.booking.adapter.out.persistence.tables.Device;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @RequiredArgsConstructor
-public class BookDeviceService implements BookDeviceUseCase {
+class BookDeviceService implements BookDeviceUseCase {
 
     private final DeviceBookingPersistencePort deviceBookingPersistencePort;
     private final ApplicationEventPublisher eventPublisher;
