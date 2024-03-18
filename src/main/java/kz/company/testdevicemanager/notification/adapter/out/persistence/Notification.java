@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Table("NOTIFICATION")
-public class Notification {
+class Notification {
     @Id
     private Long id;
     private String recipient;
