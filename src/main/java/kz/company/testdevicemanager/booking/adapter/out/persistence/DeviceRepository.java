@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * Repository interface for managing {@link Device} entities.
  */
-public interface DeviceRepository extends CrudRepository<Device, Long> {
+interface DeviceRepository extends CrudRepository<Device, Long> {
 
     Optional<Device> findBySerialNumber(String serialNumber);
 

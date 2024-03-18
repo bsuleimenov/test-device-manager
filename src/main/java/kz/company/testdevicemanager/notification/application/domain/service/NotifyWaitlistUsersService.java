@@ -1,13 +1,13 @@
 package kz.company.testdevicemanager.notification.application.domain.service;
 
-import kz.company.testdevicemanager.notification.application.domain.model.RecipientInfo;
+import kz.company.testdevicemanager.common.event.NotificationSent;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.notification.adapter.out.external.NotificationFactory;
 import kz.company.testdevicemanager.notification.application.domain.model.NotificationInfo;
+import kz.company.testdevicemanager.notification.application.domain.model.RecipientInfo;
 import kz.company.testdevicemanager.notification.application.port.in.NotifyWaitlistUsersUseCase;
 import kz.company.testdevicemanager.notification.application.port.out.LoadNotificationInfoPort;
 import kz.company.testdevicemanager.notification.application.port.out.NotificationService;
-import kz.company.testdevicemanager.common.event.NotificationSent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -36,7 +36,7 @@ class NotifyWaitlistUsersService implements NotifyWaitlistUsersUseCase {
     @Override
     public void notifyWaitlistUsersOfDevice(SerialNumber serialNumber) {
         NotificationInfo notificationInfo = loadNotificationInfoPort.loadNotificationInfoOfDevice(serialNumber);
-        if (!CollectionUtils.isEmpty(notificationInfo.getAllRecipients())) {
+        if (notificationInfo.hasRecipientsToNotify()) {
             notifyWaitlistUsers(serialNumber, notificationInfo);
         } else {
             log.info("No users found to notify in the waitlist for device '{}'", serialNumber.value());

@@ -1,13 +1,15 @@
 package kz.company.testdevicemanager.waitlist.adapter.in.web;
 
+import kz.company.testdevicemanager.common.AuthenticatedUser;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.common.valueobject.User;
-import kz.company.testdevicemanager.common.AuthenticatedUser;
 import kz.company.testdevicemanager.waitlist.application.port.in.DeviceWaitlistUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 /**
  * Controller for handling device waitlist operations.
@@ -53,6 +55,23 @@ class DeviceWaitlistController {
         } catch (Exception e) {
             log.error("Error removing user from waitlist of device {}: {}", serialNumber, e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    /**
+     * Retrieves all users from the waitlist of the device with the given serial number.
+     *
+     * @param serialNumber The serial number of the device.
+     * @return ResponseEntity containing a set of User objects representing users on the waitlist for the device.
+     */
+    @GetMapping("/users")
+    public ResponseEntity<Set<User>> getAllUsersFromWaitlistForDevice(@PathVariable("serialNumber") String serialNumber) {
+        try {
+            Set<User> usersFromWaitlist = deviceWaitlistUseCase.getAllUsersFromWaitlist(SerialNumber.of(serialNumber));
+            return ResponseEntity.ok(usersFromWaitlist);
+        } catch (Exception e) {
+            log.error("Error retrieving users from waitlist of device {}: {}", serialNumber, e.getMessage());
+            return ResponseEntity.badRequest().body(null);
         }
     }
 }

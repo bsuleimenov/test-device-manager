@@ -88,6 +88,18 @@ public class DeviceWaitlist {
     }
 
     /**
+     * Get all users from the waitlist.
+     *
+     * @return Set of users.
+     */
+    public Set<User> getAllUsers() {
+        return waitlistUsers.entrySet().stream()
+                .filter(entry -> entry.getValue())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+    }
+
+    /**
      * Checks if a user is in the waitlist for the device.
      *
      * @param user The user to check.

@@ -3,10 +3,11 @@ package kz.company.testdevicemanager.booking.application.domain.service;
 import kz.company.testdevicemanager.booking.application.domain.model.DeviceBooking;
 import kz.company.testdevicemanager.booking.application.port.in.BookDeviceUseCase;
 import kz.company.testdevicemanager.booking.application.port.out.DeviceBookingPersistencePort;
-import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.common.event.DeviceReturned;
+import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.common.valueobject.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Service class responsible for booking and returning devices.
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 class BookDeviceService implements BookDeviceUseCase {
@@ -33,6 +35,7 @@ class BookDeviceService implements BookDeviceUseCase {
         DeviceBooking deviceBooking = deviceBookingPersistencePort.findBySerialNumber(serialNumber);
         deviceBooking.bookDevice(bookedBy);
         deviceBookingPersistencePort.saveBooking(deviceBooking);
+        log.info("Device {} booked by {}", serialNumber.value(), bookedBy.username() );
     }
 
 
@@ -49,6 +52,7 @@ class BookDeviceService implements BookDeviceUseCase {
         DeviceBooking deviceBooking = deviceBookingPersistencePort.findBySerialNumber(serialNumber);
         deviceBooking.returnDevice(returnedBy);
         deviceBookingPersistencePort.updateBooking(deviceBooking);
+        log.info("Device {} returned by {}", serialNumber.value(), returnedBy.username());
 
         eventPublisher.publishEvent(DeviceReturned.of(serialNumber));
     }
