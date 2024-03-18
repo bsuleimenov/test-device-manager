@@ -51,11 +51,11 @@ class NotifyWaitlistUsersServiceTest {
         verify(loadNotificationInfoPort, times(1)).loadNotificationInfoOfDevice(serialNumber);
         verify(notificationFactory, times(1)).getNotification(NotificationType.PUSH);
         verify(notificationService, times(1)).sendNotification(recipientInfo.recipient(), notificationInfo.getMessage());
-        verify(eventPublisher, times(1)).publishEvent(NotificationSent.of(serialNumber, recipientInfo.recipient()));
+        verify(eventPublisher, times(1)).publishEvent(NotificationSent.of(serialNumber, recipientInfo.recipient(), message));
     }
 
     @Test
-    void notifyWaitlistUsersOfDevice_WaitlistUsers() {
+    void notifyWaitlistUsersOfDevice_NoWaitlistUsers() {
         SerialNumber serialNumber = SerialNumber.of("S9SN123");
         String message = String.format("Device with serial number %s is available", serialNumber.value());
         NotificationInfo notificationInfo = new NotificationInfo(message);

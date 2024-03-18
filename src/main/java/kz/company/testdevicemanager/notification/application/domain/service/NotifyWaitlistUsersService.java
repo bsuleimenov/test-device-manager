@@ -55,7 +55,8 @@ class NotifyWaitlistUsersService implements NotifyWaitlistUsersUseCase {
             NotificationService notificationService = notificationFactory.getNotification(recipientInfo.notificationType());
             notificationService.sendNotification(recipientInfo.recipient(), notificationInfo.getMessage());
 
-            eventPublisher.publishEvent(NotificationSent.of(serialNumber, recipientInfo.recipient()));
+            eventPublisher.publishEvent(
+                    NotificationSent.of(serialNumber, recipientInfo.recipient(), notificationInfo.getMessage()));
         }
     }
 }
