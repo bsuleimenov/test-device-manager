@@ -4,6 +4,7 @@ import kz.company.testdevicemanager.booking.application.domain.model.api.Booking
 import kz.company.testdevicemanager.booking.application.domain.model.api.DeviceInfo;
 import kz.company.testdevicemanager.booking.application.domain.model.api.DeviceOverview;
 import kz.company.testdevicemanager.booking.application.port.out.LoadDevicePort;
+import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,13 @@ class DevicePersistenceAdapter implements LoadDevicePort {
         return allDevices.stream()
                 .map(this::convertToDeviceOverview)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public DeviceOverview loadDevice(SerialNumber serialNumber) {
+        Device device = deviceRepository.findBySerialNumber(serialNumber.value())
+                .orElseThrow(() -> new IllegalArgumentException("Device with serial number " + serialNumber.value() + " does not exist"));
+        return convertToDeviceOverview(device);
     }
 
     /**

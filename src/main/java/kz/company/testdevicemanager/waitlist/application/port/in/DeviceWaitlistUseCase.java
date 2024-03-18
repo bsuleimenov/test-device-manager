@@ -3,6 +3,8 @@ package kz.company.testdevicemanager.waitlist.application.port.in;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.common.valueobject.User;
 
+import java.util.Set;
+
 /**
  * Use case interface for managing device waitlist.
  */
@@ -23,4 +25,12 @@ public interface DeviceWaitlistUseCase {
      * @param user         The user to remove from the waitlist.
      */
     void removeFromWaitlistForDevice(SerialNumber serialNumber, User user);
+
+    /**
+     * Retrieves all users from the waitlist of the device with the given serial number.
+     *
+     * @param serialNumber The serial number of the device.
+     * @return Set of users on the waitlist for the device.
+     */
+    Set<User> getAllUsersFromWaitlist(SerialNumber serialNumber);
 }

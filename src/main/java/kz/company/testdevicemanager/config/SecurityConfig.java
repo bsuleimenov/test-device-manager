@@ -51,7 +51,7 @@ public class SecurityConfig {
         UserDetails user1 = User.builder()
                 .username("user1")
                 .password(encoder.encode("user1"))
-                .roles("USER")
+                .roles("TESTER")
                 .build();
         jdbcUserDetailsManager.createUser(user1);
         UserDetails user2 = User.builder()

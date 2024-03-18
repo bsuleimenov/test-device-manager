@@ -1,16 +1,15 @@
 package kz.company.testdevicemanager.notification.adapter.out;
 
-import kz.company.testdevicemanager.notification.application.domain.model.RecipientInfo;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.common.valueobject.User;
 import kz.company.testdevicemanager.notification.application.domain.model.NotificationInfo;
+import kz.company.testdevicemanager.notification.application.domain.model.RecipientInfo;
 import kz.company.testdevicemanager.notification.application.port.out.LoadNotificationInfoPort;
-import kz.company.testdevicemanager.waitlist.adapter.out.DeviceWaitlistRepository;
-import kz.company.testdevicemanager.waitlist.adapter.out.Waitlist;
+import kz.company.testdevicemanager.waitlist.application.port.in.DeviceWaitlistUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Provides functionality to load notification information for a given device.
@@ -19,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 class NotificationInfoProvider implements LoadNotificationInfoPort {
 
-    private final DeviceWaitlistRepository deviceWaitlistRepository;
+    private final DeviceWaitlistUseCase deviceWaitlistUseCase;
 
     /**
      * Retrieves notification information for the specified device.
@@ -29,25 +28,24 @@ class NotificationInfoProvider implements LoadNotificationInfoPort {
      */
     @Override
     public NotificationInfo loadNotificationInfoOfDevice(SerialNumber serialNumber) {
-        List<Waitlist> deviceWaitlist = deviceWaitlistRepository.findBySerialNumber(serialNumber.value());
-        return createNotificationInfo(serialNumber, deviceWaitlist);
+        Set<User> users = deviceWaitlistUseCase.getAllUsersFromWaitlist(serialNumber);
+        return createNotificationInfo(serialNumber, users);
     }
 
-    private NotificationInfo createNotificationInfo(SerialNumber serialNumber, List<Waitlist> deviceWaitlist) {
+    private NotificationInfo createNotificationInfo(SerialNumber serialNumber, Set<User> users) {
         String message = String.format("Device with serial number %s is available", serialNumber.value());
         NotificationInfo notificationInfo = new NotificationInfo(message);
-        for (Waitlist waitlist : deviceWaitlist) {
-            RecipientInfo recipientInfo = createRecipientInfo(waitlist);
+        for (User user : users) {
+            RecipientInfo recipientInfo = createRecipientInfo(user);
             notificationInfo.addNewRecipient(recipientInfo);
         }
         return notificationInfo;
     }
 
-    private RecipientInfo createRecipientInfo(Waitlist waitlist) {
+    private RecipientInfo createRecipientInfo(User user) {
         //TODO: Implement logic to determine the notification type
         // Currently, the default is set to PUSH notification
 
-        User user = User.of(waitlist.getUsername());
         return RecipientInfo.withPushNotification(user);
     }
 }

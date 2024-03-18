@@ -1,7 +1,6 @@
 package kz.company.testdevicemanager.waitlist.adapter.out;
 
-import kz.company.testdevicemanager.booking.adapter.out.persistence.Device;
-import kz.company.testdevicemanager.booking.adapter.out.persistence.DeviceRepository;
+import kz.company.testdevicemanager.booking.application.port.in.GetDeviceUseCase;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.common.valueobject.User;
 import kz.company.testdevicemanager.waitlist.application.domain.model.DeviceWaitlist;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 class DeviceWaitlistPersistenceAdapter implements DeviceWaitlistPersistencePort {
 
     private final DeviceWaitlistRepository deviceWaitlistRepository;
-    private final DeviceRepository deviceRepository;
+    private final GetDeviceUseCase getDeviceUseCase;
 
     /**
      * Checks if the device with the given serial number is available for booking.
@@ -34,9 +33,7 @@ class DeviceWaitlistPersistenceAdapter implements DeviceWaitlistPersistencePort 
      */
     @Override
     public boolean isDeviceAvailable(SerialNumber serialNumber) {
-        Device device = deviceRepository.findBySerialNumber(serialNumber.value())
-                .orElseThrow(() -> new IllegalArgumentException("Device with serial number " + serialNumber.value() + " does not exist"));
-        return device.isAvailable();
+        return getDeviceUseCase.isDeviceAvailable(serialNumber);
     }
 
     /**

@@ -1,6 +1,7 @@
 package kz.company.testdevicemanager.notification.application.domain.model;
 
 import lombok.Getter;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +35,10 @@ public class NotificationInfo {
         if (recipientInfo != null) {
             recipientInfoList.add(recipientInfo);
         }
+    }
+
+    public boolean hasRecipientsToNotify() {
+        return !CollectionUtils.isEmpty(recipientInfoList);
     }
 
     /**

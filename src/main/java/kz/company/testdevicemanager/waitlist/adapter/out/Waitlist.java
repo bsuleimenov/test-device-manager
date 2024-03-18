@@ -6,7 +6,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @Table("DEVICE_WAITLIST")
-public class Waitlist {
+class Waitlist {
     @Id
     private Long id;
     private String serialNumber;

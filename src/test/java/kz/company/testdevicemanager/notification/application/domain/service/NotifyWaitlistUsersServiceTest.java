@@ -1,14 +1,14 @@
 package kz.company.testdevicemanager.notification.application.domain.service;
 
-import kz.company.testdevicemanager.notification.application.domain.model.RecipientInfo;
+import kz.company.testdevicemanager.common.event.NotificationSent;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.common.valueobject.User;
 import kz.company.testdevicemanager.notification.adapter.out.external.NotificationFactory;
 import kz.company.testdevicemanager.notification.application.domain.model.NotificationInfo;
 import kz.company.testdevicemanager.notification.application.domain.model.NotificationType;
+import kz.company.testdevicemanager.notification.application.domain.model.RecipientInfo;
 import kz.company.testdevicemanager.notification.application.port.out.LoadNotificationInfoPort;
 import kz.company.testdevicemanager.notification.application.port.out.NotificationService;
-import kz.company.testdevicemanager.common.event.NotificationSent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

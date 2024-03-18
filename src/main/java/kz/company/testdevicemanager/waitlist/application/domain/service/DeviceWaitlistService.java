@@ -6,12 +6,18 @@ import kz.company.testdevicemanager.waitlist.application.domain.model.DeviceWait
 import kz.company.testdevicemanager.waitlist.application.port.in.DeviceWaitlistUseCase;
 import kz.company.testdevicemanager.waitlist.application.port.out.DeviceWaitlistPersistencePort;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service class responsible for managing device waitlists.
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 class DeviceWaitlistService implements DeviceWaitlistUseCase {
@@ -36,6 +42,7 @@ class DeviceWaitlistService implements DeviceWaitlistUseCase {
                 .orElseGet(() -> DeviceWaitlist.newInstance(serialNumber));
         deviceWaitlist.addToWaitlist(user);
         persistencePort.save(deviceWaitlist);
+        log.info("User {} added to waitlist for device {}", user.username(), serialNumber.value());
     }
 
     /**
@@ -51,5 +58,17 @@ class DeviceWaitlistService implements DeviceWaitlistUseCase {
                 .orElseThrow(() -> new IllegalArgumentException("No waitlist found for device " + serialNumber.value()));
         waitlist.removeFromWaitlist(user);
         persistencePort.save(waitlist);
+        log.info("User {} removed from waitlist for device {} ", user.username(), serialNumber.value());
+    }
+
+    @Override
+    public Set<User> getAllUsersFromWaitlist(SerialNumber serialNumber) {
+        Optional<DeviceWaitlist> deviceWaitlistOpt = persistencePort.findBySerialNumber(serialNumber);
+        if (deviceWaitlistOpt.isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        DeviceWaitlist deviceWaitlist = deviceWaitlistOpt.get();
+        return deviceWaitlist.getAllUsers();
     }
 }

@@ -4,6 +4,7 @@ import kz.company.testdevicemanager.booking.application.domain.model.api.DeviceI
 import kz.company.testdevicemanager.booking.application.domain.model.api.DeviceOverview;
 import kz.company.testdevicemanager.booking.application.port.in.GetDeviceUseCase;
 import kz.company.testdevicemanager.booking.application.port.out.LoadDevicePort;
+import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,14 @@ class GetDeviceService implements GetDeviceUseCase {
     @Override
     public List<DeviceOverview> getAllDevices() {
         return loadDevicePort.loadAllDevices();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isDeviceAvailable(SerialNumber serialNumber) {
+        DeviceOverview deviceOverview = loadDevicePort.loadDevice(serialNumber);
+        return deviceOverview.available();
     }
 }

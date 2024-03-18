@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Set;
 
-public interface DeviceWaitlistRepository extends CrudRepository<Waitlist, Long> {
+interface DeviceWaitlistRepository extends CrudRepository<Waitlist, Long> {
 
     List<Waitlist> findBySerialNumber(String serialNumber);
 

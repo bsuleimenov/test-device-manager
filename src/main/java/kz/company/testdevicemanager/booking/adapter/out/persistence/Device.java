@@ -6,7 +6,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @Table("DEVICES")
-public class Device {
+class Device {
     @Id
     private Long id; // Database-generated ID
     private String serialNumber; // Unique serial number assigned by the manufacturer
