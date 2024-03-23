@@ -2,7 +2,6 @@ package kz.company.testdevicemanager.notification.application.domain.service;
 
 import kz.company.testdevicemanager.common.event.NotificationSent;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
-import kz.company.testdevicemanager.notification.adapter.out.external.NotificationFactory;
 import kz.company.testdevicemanager.notification.application.domain.model.NotificationInfo;
 import kz.company.testdevicemanager.notification.application.domain.model.RecipientInfo;
 import kz.company.testdevicemanager.notification.application.port.in.NotifyWaitlistUsersUseCase;
@@ -12,9 +11,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A service responsible for notifying waitlisted users that the device is now available for booking.
@@ -52,11 +51,15 @@ class NotifyWaitlistUsersService implements NotifyWaitlistUsersUseCase {
     private void notifyWaitlistUsers(SerialNumber serialNumber, NotificationInfo notificationInfo) {
         List<RecipientInfo> allRecipients = notificationInfo.getAllRecipients();
         for (RecipientInfo recipientInfo : allRecipients) {
-            NotificationService notificationService = notificationFactory.getNotification(recipientInfo.notificationType());
-            notificationService.sendNotification(recipientInfo.recipient(), notificationInfo.getMessage());
-
-            eventPublisher.publishEvent(
-                    NotificationSent.of(serialNumber, recipientInfo.recipient(), notificationInfo.getMessage()));
+            Optional<NotificationService> notificationServiceOpt = notificationFactory.getNotification(recipientInfo.notificationType());
+            if (notificationServiceOpt.isPresent()) {
+                NotificationService notificationService = notificationServiceOpt.get();
+                notificationService.sendNotification(recipientInfo.recipient(), notificationInfo.getMessage());
+                eventPublisher.publishEvent(
+                        NotificationSent.of(serialNumber, recipientInfo.recipient(), notificationInfo.getMessage()));
+            } else {
+                log.error("Unsupported notification type: {}", recipientInfo.notificationType());
+            }
         }
     }
 }

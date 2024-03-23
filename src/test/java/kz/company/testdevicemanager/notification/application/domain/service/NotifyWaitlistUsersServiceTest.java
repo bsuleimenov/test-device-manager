@@ -3,7 +3,6 @@ package kz.company.testdevicemanager.notification.application.domain.service;
 import kz.company.testdevicemanager.common.event.NotificationSent;
 import kz.company.testdevicemanager.common.valueobject.SerialNumber;
 import kz.company.testdevicemanager.common.valueobject.User;
-import kz.company.testdevicemanager.notification.adapter.out.external.NotificationFactory;
 import kz.company.testdevicemanager.notification.application.domain.model.NotificationInfo;
 import kz.company.testdevicemanager.notification.application.domain.model.NotificationType;
 import kz.company.testdevicemanager.notification.application.domain.model.RecipientInfo;
@@ -15,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.context.ApplicationEventPublisher;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -44,7 +45,7 @@ class NotifyWaitlistUsersServiceTest {
         when(loadNotificationInfoPort.loadNotificationInfoOfDevice(serialNumber)).thenReturn(notificationInfo);
 
         NotificationService notificationService = mock(NotificationService.class);
-        when(notificationFactory.getNotification(NotificationType.PUSH)).thenReturn(notificationService);
+        when(notificationFactory.getNotification(NotificationType.PUSH)).thenReturn(Optional.ofNullable(notificationService));
 
         notifyWaitlistUsersService.notifyWaitlistUsersOfDevice(serialNumber);
 
